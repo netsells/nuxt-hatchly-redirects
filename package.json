@@ -1,7 +1,7 @@
 {
     "name": "@hatchly/nuxt-redirects-module",
     "description": "Official nuxt integration for the Hatchly/Redirects module",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "main": "./lib/index.js",
     "license": "MIT",
     "repository": {
