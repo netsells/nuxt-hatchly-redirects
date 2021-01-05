@@ -31,7 +31,7 @@ module.exports = {
 Add the API url to your .env:
 
 ```
-API_BASE=http://my-application.localhost
+API_URL=http://my-application.localhost
 ```
 
 ## Options
@@ -40,34 +40,37 @@ The options object can contain the following values:
 
 ```js
 {
-    apiBase: '',
-    apiPath: '',
-    apiUrl: '',
+    cacheTimeout: '',
 },
 ```
 
 Each option is described below.
 
-### `apiBase`
+### `cacheTimeout`
 
-> The url of your Hatchly site. This is should be updated in your .env rather than hardcoding a value here.
+> The duration, in seconds, until the cached date is refreshed. The cache can be disabled completely by passing a falsey value.
 
-- Default: `process.env.API_BASE`
-- Type: `string`
+- Default: `86400` (24 hours)
+- Type: `number|boolean`
 
-### `apiPath`
+### Runtime config
 
-> The path to the redirects endpoint. This can be modified in the Hatchly api config file, so make sure this path corresponds to that value.
+By default, this package will utilise `API_URL` and `API_URL_BROWSER` variables as defined in your env. These are injected as runtime variables for you.
 
-- Default: `'_hatchly/api/redirects'`
-- Type: `string`
+You can supply your endpoint manually to the module via the `publicRuntimeConfig` and `privateRuntimeConfig` objects, e.g.:
 
-### `apiUrl`
-
-> The full api url to the redirects module. By default this is made up of the `apiBase` and the `apiUrl`, but can be overwritten in full.
-
-- Default: `${ process.env.API_BASE }/_hatchly/api/redirects`
-- Type: `string`
+```js
+module.exports = {
+    publicRuntimeConfig: {
+        hatchly: {
+            redirects: {
+                // Overwrite options for the redirects module
+                endpoint: process.env.REDIRECTS_API_URL,
+            },
+        },    
+    },
+};
+```
 
 ## Usage
 
